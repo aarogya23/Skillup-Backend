@@ -31,9 +31,9 @@ public class User {
     private String profileImageBase64;
 
     // ================= CONSTRUCTORS =================
-    public Ride() {}
+    public User() {}
 
-    public Ride(String name, String email, String password, String phoneNumber, String gender) {
+    public User(String name, String email, String password, String phoneNumber, String gender) {
         this.name = name;
         this.email = email;
         this.password = password;
