@@ -34,4 +34,9 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    @GetMapping("/get/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userRepository.findById(id).get();
+    }
+
 }
