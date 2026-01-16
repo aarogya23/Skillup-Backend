@@ -6,6 +6,8 @@ import com.SkillUp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin("*")
@@ -37,6 +39,12 @@ public class UserController {
     @GetMapping("/get/{id}")
     public User getUserById(@PathVariable Long id) {
         return userRepository.findById(id).get();
+    }
+
+
+    @GetMapping("/get")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
