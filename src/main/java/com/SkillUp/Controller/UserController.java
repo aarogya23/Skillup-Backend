@@ -19,4 +19,19 @@ public class UserController {
     public User saveUser(@RequestBody User user) {
         return userRepository.save(user);
     }
+
+    @PutMapping("/update/{id}")
+    public User updateUserById(@PathVariable Long id, @RequestBody User newUser) {
+
+        User user = userRepository.findById(id).get(); // simple (no extra handling)
+
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
+        user.setPassword(newUser.getPassword());
+        user.setPhoneNumber(newUser.getPhoneNumber());
+        user.setGender(newUser.getGender());
+
+        return userRepository.save(user);
+    }
+
 }
