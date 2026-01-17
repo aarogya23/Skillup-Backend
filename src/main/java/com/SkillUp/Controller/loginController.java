@@ -21,6 +21,7 @@ public class loginController {
         // Login using email + password
         if (loginData.getEmail() != null) {
             user = userRepository.findByEmailAndPassword(
+
                     loginData.getEmail(),
                     loginData.getPassword()
             );
@@ -33,7 +34,7 @@ public class loginController {
                     loginData.getPassword()
             );
         }
-
+        
         // Return response
         if (user != null) {
             return "You are logged in to the system";
