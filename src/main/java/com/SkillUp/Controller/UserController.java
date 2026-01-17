@@ -47,4 +47,13 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    // DELETE USER BY ID
+    @DeleteMapping("/delete/{id}")
+    public String deleteUserById(@PathVariable Long id) {
+
+        userRepository.deleteById(id);
+
+        return "User deleted successfully with id: " + id;
+    }
+
 }
