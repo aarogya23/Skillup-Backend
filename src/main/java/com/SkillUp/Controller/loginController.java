@@ -1,6 +1,5 @@
 package com.SkillUp.Controller;
 
-
 import com.SkillUp.Repository.UserRepository;
 import com.SkillUp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class loginController {
 
-
     @Autowired
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public boolean loginUser(@RequestBody User loginData) {
+    public String loginUser(@RequestBody User loginData) {
 
         User user = null;
 
@@ -36,7 +34,11 @@ public class loginController {
             );
         }
 
-        // Return true if user exists, false otherwise
-        return user != null;
+        // Return response
+        if (user != null) {
+            return "You are logged in to the system";
+        } else {
+            return "Invalid username/email or password";
+        }
     }
 }
