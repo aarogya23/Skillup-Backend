@@ -34,10 +34,10 @@ public class loginController {
                     loginData.getPassword()
             );
         }
-        
+
         // Return response
         if (user != null) {
-            return "You are logged in to the system";
+            return "Your are successfully registered to the system.";
         } else {
             return "Invalid username/email or password";
         }
