@@ -1,6 +1,7 @@
 package com.SkillUp.Controller;
 
 import com.SkillUp.Repository.UserRepository;
+import com.SkillUp.dto.LoginRequest;
 import com.SkillUp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
