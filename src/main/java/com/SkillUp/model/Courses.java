@@ -1,6 +1,7 @@
 package com.SkillUp.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Courses {
@@ -12,7 +13,19 @@ public class Courses {
     private String title;
     private int progress;
     private String icon;
+    private String color;
 
+    @ElementCollection
+    @CollectionTable(name = "course_videos", joinColumns = @JoinColumn(name = "course_id"))
+    @Column(name = "video_url")
+    private List<String> videoUrls; // YouTube URLs
+
+    private String duration;
+    private String badge;
+    private Boolean certificate;
+
+
+    // getters and setters
     public Long getId() {
         return id;
     }
@@ -45,6 +58,14 @@ public class Courses {
         this.icon = icon;
     }
 
+    public List<String> getVideoUrls() {
+        return videoUrls;
+    }
+
+    public void setVideoUrls(List<String> videoUrls) {
+        this.videoUrls = videoUrls;
+    }
+
     public String getColor() {
         return color;
     }
@@ -53,20 +74,12 @@ public class Courses {
         this.color = color;
     }
 
-    public Integer getVideos() {
-        return videos;
+    public String getBadge() {
+        return badge;
     }
 
-    public void setVideos(Integer videos) {
-        this.videos = videos;
-    }
-
-    public Integer getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(Integer quizzes) {
-        this.quizzes = quizzes;
+    public void setBadge(String badge) {
+        this.badge = badge;
     }
 
     public String getDuration() {
@@ -85,22 +98,4 @@ public class Courses {
         this.certificate = certificate;
     }
 
-    public String getBadge() {
-        return badge;
-    }
-
-    public void setBadge(String badge) {
-        this.badge = badge;
-    }
-
-    private String color;
-
-    private Integer videos;
-    private Integer quizzes;
-    private String duration;
-
-    private Boolean certificate;
-    private String badge;
-
-    // getters & setters
 }
