@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChatService {
 
+    private final ChatMessageRepository repository;
 
-    @Autowired
-    private ChatMessageRepository repository;
-
-    public ChatMessage saveMessage(ChatMessage message){
-        return repository.save(message);
+    public ChatService(ChatMessageRepository repository) {
+        this.repository = repository;
     }
 
-
-
+    public ChatMessage saveMessage(ChatMessage message) {
+        return repository.save(message);
+    }
 }
+
+
