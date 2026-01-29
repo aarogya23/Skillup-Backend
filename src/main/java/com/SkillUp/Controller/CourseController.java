@@ -88,5 +88,28 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-   
+    // 🔹 PATCH: Enable / Disable certificate
+    @PatchMapping("/{id}/certificate")
+    public ResponseEntity<Courses> updateCertificate(
+            @PathVariable Long id,
+            @RequestParam Boolean certificate
+    ) {
+        return courseRepository.findById(id)
+                .map(course -> {
+                    course.setCertificate(certificate);
+                    return ResponseEntity.ok(courseRepository.save(course));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // 🔹 DELETE: Remove course
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
+        if (!courseRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        courseRepository.deleteById(id);
+        return ResponseEntity.ok("Course deleted successfully");
+    }
 }
