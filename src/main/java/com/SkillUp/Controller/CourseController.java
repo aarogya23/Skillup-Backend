@@ -25,7 +25,7 @@ public class CourseController {
     }
 
     // 🔹 READ: Fetch all courses
-    @GetMapping
+    @GetMapping("/enrolled")
     public ResponseEntity<List<Courses>> getAllCourses() {
         return ResponseEntity.ok(courseRepository.findAll());
     }
