@@ -16,7 +16,7 @@ public class CorConfig {
             public void addCorsMappings(CorsRegistry registry) {
 
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081") //this is for react native end point
+                        .allowedOrigins("http://localhost:5173") //this is for react native end point
                         .allowedMethods("GET","POST","PUT","DELETE","OPTION")
                         .allowedHeaders("*")
                         .allowCredentials(true);
