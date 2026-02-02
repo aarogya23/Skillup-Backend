@@ -49,10 +49,10 @@ public class McqController {
                 if (mcq.getCorrectOptionIndex() == optionIndex) {
                     return "✅ Correct Answer";
                 } else {
-                    return "❌ Wrong Answer";
+                    return " Wrong Answer";
                 }
             }
         }
-        return "❌ Question Not Found";
+        return "Question Not Found";
     }
 }
