@@ -38,5 +38,21 @@ public class McqController {
                 .orElse(null);
     }
 
-    
+    // Submit Answer
+    @PostMapping("/{id}/answer/{optionIndex}")
+    public String submitAnswer(
+            @PathVariable Long id,
+            @PathVariable int optionIndex) {
+
+        for (McqQuestions mcq : mcqList) {
+            if (mcq.getId().equals(id)) {
+                if (mcq.getCorrectOptionIndex() == optionIndex) {
+                    return "✅ Correct Answer";
+                } else {
+                    return "❌ Wrong Answer";
+                }
+            }
+        }
+        return "❌ Question Not Found";
+    }
 }
