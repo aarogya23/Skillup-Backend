@@ -2,6 +2,10 @@ package com.SkillUp.model;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
@@ -13,4 +17,6 @@ public class McqQuestions {
     private String question;
     private List<String> options;
     private int correctOptionIndex; // 0-based index
+
+
 }
