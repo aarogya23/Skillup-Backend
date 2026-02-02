@@ -23,5 +23,20 @@ public class McqController {
         return mcq;
     }
 
-   
+    // Get all MCQs
+    @GetMapping("/all")
+    public List<McqQuestions> getAllMcqs() {
+        return mcqList;
+    }
+
+    // Get MCQ by ID
+    @GetMapping("/{id}")
+    public McqQuestions getMcqById(@PathVariable Long id) {
+        return mcqList.stream()
+                .filter(mcq -> mcq.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    
 }
