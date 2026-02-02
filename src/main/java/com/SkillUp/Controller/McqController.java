@@ -1,58 +1,58 @@
 package com.SkillUp.Controller;
 
 
+import com.SkillUp.Repository.McqRepository;
 import com.SkillUp.model.McqQuestions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/mcq")
 public class McqController {
 
-    private final List<McqQuestions> mcqList = new ArrayList<>();
-    private final AtomicLong counter = new AtomicLong(1);
+    @Autowired
+    private McqRepository mcqRepository;   // Auto injected repository
 
-    // Add MCQ
     @PostMapping("/add")
     public McqQuestions addMcq(@RequestBody McqQuestions mcq) {
-        mcq.setId(counter.getAndIncrement());
-        mcqList.add(mcq);
-        return mcq;
+        return mcqRepository.save(mcq);
     }
 
-    // Get all MCQs
     @GetMapping("/all")
     public List<McqQuestions> getAllMcqs() {
-        return mcqList;
+        return mcqRepository.findAll();
     }
 
-    // Get MCQ by ID
     @GetMapping("/{id}")
     public McqQuestions getMcqById(@PathVariable Long id) {
-        return mcqList.stream()
-                .filter(mcq -> mcq.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        Optional<McqQuestions> optional = mcqRepository.findById(id);
+
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
     }
 
-    // Submit Answer
     @PostMapping("/{id}/answer/{optionIndex}")
-    public String submitAnswer(
-            @PathVariable Long id,
-            @PathVariable int optionIndex) {
+    public String submitAnswer(@PathVariable Long id, @PathVariable int optionIndex) {
 
-        for (McqQuestions mcq : mcqList) {
-            if (mcq.getId().equals(id)) {
-                if (mcq.getCorrectOptionIndex() == optionIndex) {
-                    return "✅ Correct Answer";
-                } else {
-                    return " Wrong Answer";
-                }
+        Optional<McqQuestions> optional = mcqRepository.findById(id);
+
+        if (optional.isPresent()) {
+            McqQuestions mcq = optional.get();
+
+            if (mcq.getCorrectOptionIndex() == optionIndex) {
+                return "Correct Answer";
+            } else {
+                return "Wrong Answer";
             }
         }
+
         return "Question Not Found";
     }
 }
