@@ -1,20 +1,16 @@
 package com.SkillUp.model;
 
 
+import jakarta.persistence.*;
+import lombok.*;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
-
+@Entity
+@Table(name = "mcq_questions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+
 public class McqQuestions {
 
     @Id
@@ -23,10 +19,10 @@ public class McqQuestions {
 
     private String question;
 
-    @ElementCollection
-    private List<String> options;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
 
-    private int correctOptionIndex;
-
-
+    private String correctAnswer;
 }
