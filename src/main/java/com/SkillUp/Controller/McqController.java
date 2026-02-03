@@ -1,58 +1,43 @@
 package com.SkillUp.Controller;
 
 
+
 import com.SkillUp.Repository.McqRepository;
 import com.SkillUp.model.McqQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/mcq")
 public class McqController {
 
     @Autowired
-    private McqRepository mcqRepository;   // Auto injected repository
+    private McqRepository mcqRepository;
 
+    // ✅ Add MCQ
     @PostMapping("/add")
-    public McqQuestions addMcq(@RequestBody McqQuestions mcq) {
-        return mcqRepository.save(mcq);
+    public McqQuestions addQuestion(@RequestBody McqQuestions mcqQuestion) {
+        return mcqRepository.save(mcqQuestion);
     }
 
+    // ✅ Get all MCQs
     @GetMapping("/all")
-    public List<McqQuestions> getAllMcqs() {
+    public List<McqQuestions> getAllQuestions() {
         return mcqRepository.findAll();
     }
 
+    // ✅ Get MCQ by ID
     @GetMapping("/{id}")
-    public McqQuestions getMcqById(@PathVariable Long id) {
-        Optional<McqQuestions> optional = mcqRepository.findById(id);
-
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        return null;
+    public McqQuestions getQuestion(@PathVariable Long id) {
+        return mcqRepository.findById(id).orElse(null);
     }
 
-    @PostMapping("/{id}/answer/{optionIndex}")
-    public String submitAnswer(@PathVariable Long id, @PathVariable int optionIndex) {
-
-        Optional<McqQuestions> optional = mcqRepository.findById(id);
-
-        if (optional.isPresent()) {
-            McqQuestions mcq = optional.get();
-
-            if (mcq.getCorrectOptionIndex() == optionIndex) {
-                return "Correct Answer";
-            } else {
-                return "Wrong Answer";
-            }
-        }
-
-        return "Question Not Found";
+    // ✅ Delete MCQ
+    @DeleteMapping("/delete/{id}")
+    public String deleteQuestion(@PathVariable Long id) {
+        mcqRepository.deleteById(id);
+        return "MCQ deleted successfully";
     }
 }
