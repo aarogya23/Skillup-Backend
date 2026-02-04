@@ -1,7 +1,5 @@
 package com.SkillUp.Controller;
 
-
-
 import com.SkillUp.Repository.McqRepository;
 import com.SkillUp.model.McqQuestions;
 import org.springframework.beans.factory.annotation.Autowired;

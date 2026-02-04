@@ -17,6 +17,8 @@ public class McqQuestions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String category;
+
     private String question;
 
     private String optionA;
