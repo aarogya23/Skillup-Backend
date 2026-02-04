@@ -14,7 +14,7 @@ public class McqController {
     @Autowired
     private McqRepository mcqRepository;
 
-    // ✅ Add MCQ
+    // ✅ Add MCQ with category
     @PostMapping("/add")
     public McqQuestions addQuestion(@RequestBody McqQuestions mcqQuestion) {
         return mcqRepository.save(mcqQuestion);
@@ -24,6 +24,12 @@ public class McqController {
     @GetMapping("/all")
     public List<McqQuestions> getAllQuestions() {
         return mcqRepository.findAll();
+    }
+
+    // ✅ Get MCQs by Category (React / Java / DSA)
+    @GetMapping("/category/{category}")
+    public List<McqQuestions> getByCategory(@PathVariable String category) {
+        return mcqRepository.findByCategory(category);
     }
 
     // ✅ Get MCQ by ID
