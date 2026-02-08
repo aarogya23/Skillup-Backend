@@ -48,28 +48,29 @@ public class McqController {
     public Map<String, Integer> submitTest(@RequestBody Map<Long, String> answers) {
 
         int correct = 0;
-        int incorrect = 0;
 
-        for (Long questionId : answers.keySet()) {
+        for (Map.Entry<Long, String> entry : answers.entrySet()) {
+            Long questionId = entry.getKey();
+            String userAnswer = entry.getValue();
 
             McqQuestions question = mcqRepository.findById(questionId).orElse(null);
             if (question == null) continue;
 
-            String userAnswer = answers.get(questionId);
-
             if (userAnswer.equalsIgnoreCase(question.getCorrectAnswer())) {
                 correct++;
-            } else {
-                incorrect++;
             }
         }
 
+        int total = answers.size();
+        int incorrect = total - correct;
+
         Map<String, Integer> result = new HashMap<>();
-        result.put("total", answers.size());
+        result.put("total", total);
         result.put("correct", correct);
         result.put("incorrect", incorrect);
 
         return result;
     }
+
 
 }
